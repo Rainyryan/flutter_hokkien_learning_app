@@ -88,7 +88,7 @@ class ChatPageState extends State<ChatPage> {
                 ),
               ),
               IconButton(
-                color: recorder.isRecording ? Colors.redAccent : Colors.white30,
+                color: recorder.isRecording ? Colors.redAccent : Colors.white,
                 onPressed: () async {
                   // getTemporaryDirectory(): 取得暫存資料夾，這個資料夾隨時可能被系統或使用者操作清除
                   Directory tempDir =
@@ -118,6 +118,7 @@ class ChatPageState extends State<ChatPage> {
                 icon: Icon(Icons.mic_none),
               ),
               IconButton(
+                  color: Colors.black,
                   icon: Icon(Icons.send),
                   onPressed: () async {
                     if (_chatController.text.isEmpty) return;
