@@ -149,24 +149,32 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                                               children: List.generate(type.e.length,
                                                                       (k) {
                                                                     final ex = type.e[k];
-                                                                    return Flexible(
+                                                                    return
+                                                                      Flexible(
                                                                       flex: 1,
                                                                       child: Padding(
-                                                                          padding: const EdgeInsets.all(10),
-                                                                          child:
-                                                                          Text(
-                                                                            ex,
-                                                                            textAlign: TextAlign.left,
-                                                                            style: TextStyle(
-                                                                                fontSize: 14,
-                                                                                color: Colors.black,
-                                                                                background: Paint()
-                                                                                  ..strokeWidth = 14.0
-                                                                                  ..color = Colors.lightGreen
-                                                                                  ..style = PaintingStyle.stroke
-                                                                                  ..strokeJoin = StrokeJoin.round
+                                                                          padding: const EdgeInsets.all(5),
+                                                                          child:Card(
+                                                                            color: Colors.green,
+                                                                            shape: const StadiumBorder(
+                                                                              side: BorderSide(
+                                                                                color: Colors.teal,
+                                                                                width: 1.0,
+                                                                              ),
                                                                             ),
-                                                                          ),
+                                                                            child: Padding(
+                                                                              padding: const EdgeInsets.all(10),
+                                                                              child:
+                                                                              Text(
+                                                                                ex,
+                                                                                textAlign: TextAlign.left,
+                                                                                style: const TextStyle(
+                                                                                  fontSize: 14,
+                                                                                  color: Colors.white,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          )
                                                                       ),
                                                                     );
                                                                   }),
