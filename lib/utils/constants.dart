@@ -1,2 +1,2 @@
 const openaiBaseUrl = "https://api.openai.com/v1";
-const openaiApiKey = "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";
+const openaiApiKey = "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";

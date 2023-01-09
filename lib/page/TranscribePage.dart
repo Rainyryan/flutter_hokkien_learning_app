@@ -80,7 +80,7 @@ class TranscribePageState extends State<TranscribePage> {
                   ),
             )),
             Flexible(
-              child: Center(child: buildRadio()),
+              child: Container(child: buildRadio(), height: 50,),
             ),
             Flexible(
               child: Center(child: buildOutputField()),
@@ -193,9 +193,9 @@ class TranscribePageState extends State<TranscribePage> {
           hintText: txt, // 提示文字,
           suffixIcon: IconButton(
             // TextField 中最後可以選擇放入 Icon
-            icon: const Icon(
+            icon: Icon(
               Icons.volume_up_rounded, // Flutter 內建的搜尋 icon
-              color: Colors.grey, // 設定 icon 顏色
+              color: Colors.grey,
             ),
             // 當 icon 被點擊時執行的動作
             onPressed: () async {
@@ -215,7 +215,7 @@ class TranscribePageState extends State<TranscribePage> {
   Future play(String pathToReadAudio) async {
     await player.play(pathToReadAudio);
     setState(() {
-      player.init();
+      // player.init();
       player.isPlaying;
     });
   }
@@ -245,7 +245,7 @@ class TranscribePageState extends State<TranscribePage> {
           ),
           hintText: txt,
           suffixIcon: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.volume_up_rounded,
               color: Colors.grey,
             ),
@@ -255,15 +255,14 @@ class TranscribePageState extends State<TranscribePage> {
               // print(strings);
               // await Text2SpeechFlutter().speak(strings);
               // 得到 TextField 中輸入的 value
-
               String strings = chineseController.text;
               // 如果為空則 return
               if (strings.isEmpty) return;
               await Text2Speech().connect(play, strings, "chinese");
               // player.init();
-              setState(() {
-                // player.isPlaying;
-              });
+              // setState(() {
+              //   player.isPlaying;
+              // });
             },
           ),
         ),

@@ -88,7 +88,7 @@ class ChatPageState extends State<ChatPage> {
                 ),
               ),
               IconButton(
-                color: recorder.isRecording ? Colors.redAccent : Colors.white,
+                color: recorder.isRecording ? Colors.red : Colors.white,
                 onPressed: () async {
                   // getTemporaryDirectory(): 取得暫存資料夾，這個資料夾隨時可能被系統或使用者操作清除
                   Directory tempDir =
@@ -177,9 +177,9 @@ class ChatPageState extends State<ChatPage> {
     await Text2Speech().connect(play, reply, recognitionLanguage.toLowerCase());
     print(reply);
     setState(() {
-      // recognitionController.text = taiTxt;
-      _submitText(reply, false);
+      recognitionController.text = taiTxt;
     });
+    _submitText(reply, false);
   }
 
   Widget buildTaiwaneseField(txt) {
@@ -324,7 +324,7 @@ class ChatPageState extends State<ChatPage> {
           //  如果Radio的value和groupValu一樣就是此 Radio 選中其他設置為不選中
           groupValue: recognitionLanguage,
           // 設定選種顏色
-          activeColor: Colors.red,
+          activeColor: Colors.blueAccent,
           onChanged: (value) {
             setState(() {
               // 將 recognitionLanguage 設為 Taiwanese
@@ -345,7 +345,7 @@ class ChatPageState extends State<ChatPage> {
           //  如果Radio的value和groupValu一樣就是此 Radio 選中其他設置為不選中
           groupValue: recognitionLanguage,
           // 設定選種顏色
-          activeColor: Colors.red,
+          activeColor: Colors.blueAccent,
           onChanged: (value) {
             setState(() {
               // 將 recognitionLanguage 設為 Taiwanese
