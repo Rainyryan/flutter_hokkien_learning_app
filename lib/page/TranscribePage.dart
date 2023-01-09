@@ -58,35 +58,35 @@ class TranscribePageState extends State<TranscribePage> {
             const Flexible(
               child: Center(
                 child: Text(
-                  // content of text
-                  "Speech Synthesis",
-                  // Setup size and color of Text
-                  // style: TextStyle(fontSize: 30, color: Colors.blue),
-                ),
+                    // content of text
+                    "台語怎麼念",
+                    style: TextStyle(fontSize: 20)
+                    // Setup size and color of Text
+                    // style: TextStyle(fontSize: 30, color: Colors.blue),
+                    ),
               ),
             ),
             Flexible(
                 child: Center(
-              child: buildTaiwaneseField("Taiwanese"),
+              child: buildTaiwaneseField("台語"),
             )),
             Flexible(
-              child: Center(child: buildChineseField("Chinese")),
+              child: Center(child: buildChineseField("國語")),
             ),
             const Flexible(
                 child: Center(
-              child: Text(
-                "Speech Recognition",
-                // style: TextStyle(fontSize: 30, color: Colors.blue),
-              ),
+              child: Text("說說看吧！", style: TextStyle(fontSize: 20)
+                  // style: TextStyle(fontSize: 30, color: Colors.blue),
+                  ),
             )),
             Flexible(
-              child: Center(child: buildRadio()),
+              child: Container(child: buildRadio(), height: 50,),
             ),
             Flexible(
               child: Center(child: buildOutputField()),
             ),
             Flexible(
-              child: Center(child: buildRecord()),
+              child: Container(),
             ),
           ],
         ),
@@ -153,17 +153,23 @@ class TranscribePageState extends State<TranscribePage> {
 
   // set recognitionController.text function
   void setTxt(taiTxt) async {
-    String reply = await DioHttpUtil().complete(taiTxt);
-    await Text2Speech().connect(play, reply, recognitionLanguage.toLowerCase());
-    print(reply);
+    // String reply = await DioHttpUtil().complete(taiTxt);
+    // await Text2Speech().connect(play, reply, recognitionLanguage.toLowerCase());
+    // print(reply);
     setState(() {
       recognitionController.text = taiTxt;
     });
+    await Text2Speech().connect(
+        play,
+        taiTxt,
+        recognitionLanguage.toLowerCase() == "taiwanese"
+            ? "chinese"
+            : "taiwanese");
   }
 
   Widget buildTaiwaneseField(txt) {
     return Padding(
-      padding: const EdgeInsets.only(left: 40, right: 40),
+      padding: const EdgeInsets.only(left: 5, right: 5),
       child: TextField(
         controller: taiwanessController, // 為了獲得TextField中的value
         decoration: InputDecoration(
@@ -173,7 +179,7 @@ class TranscribePageState extends State<TranscribePage> {
             borderRadius: BorderRadius.all(Radius.circular(10)), // 設定邊框圓角弧度
             borderSide: BorderSide(
               color: Colors.black87, // 設定邊框的顏色
-              width: 2.0, // 設定邊框的粗細
+              width: 1.0, // 設定邊框的粗細
             ),
           ),
           // when user choose the TextField
@@ -187,9 +193,9 @@ class TranscribePageState extends State<TranscribePage> {
           hintText: txt, // 提示文字,
           suffixIcon: IconButton(
             // TextField 中最後可以選擇放入 Icon
-            icon: const Icon(
-              Icons.search, // Flutter 內建的搜尋 icon
-              color: Colors.grey, // 設定 icon 顏色
+            icon: Icon(
+              Icons.volume_up_rounded, // Flutter 內建的搜尋 icon
+              color: Colors.grey,
             ),
             // 當 icon 被點擊時執行的動作
             onPressed: () async {
@@ -209,14 +215,14 @@ class TranscribePageState extends State<TranscribePage> {
   Future play(String pathToReadAudio) async {
     await player.play(pathToReadAudio);
     setState(() {
-      player.init();
+      // player.init();
       player.isPlaying;
     });
   }
 
   Widget buildChineseField(txt) {
     return Padding(
-      padding: const EdgeInsets.only(left: 40, right: 40),
+      padding: const EdgeInsets.only(left: 5, right: 5),
       child: TextField(
         controller: chineseController,
         decoration: InputDecoration(
@@ -226,7 +232,7 @@ class TranscribePageState extends State<TranscribePage> {
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(
               color: Colors.black87, // 設定邊框的顏色
-              width: 2.0, // 設定邊框的粗細
+              width: 1.0, // 設定邊框的粗細
             ),
           ),
           // when user choose the TextField
@@ -239,8 +245,8 @@ class TranscribePageState extends State<TranscribePage> {
           ),
           hintText: txt,
           suffixIcon: IconButton(
-            icon: const Icon(
-              Icons.search,
+            icon: Icon(
+              Icons.volume_up_rounded,
               color: Colors.grey,
             ),
             onPressed: () async {
@@ -249,15 +255,14 @@ class TranscribePageState extends State<TranscribePage> {
               // print(strings);
               // await Text2SpeechFlutter().speak(strings);
               // 得到 TextField 中輸入的 value
-
               String strings = chineseController.text;
               // 如果為空則 return
               if (strings.isEmpty) return;
               await Text2Speech().connect(play, strings, "chinese");
               // player.init();
-              setState(() {
-                // player.isPlaying;
-              });
+              // setState(() {
+              //   player.isPlaying;
+              // });
             },
           ),
         ),
@@ -267,18 +272,48 @@ class TranscribePageState extends State<TranscribePage> {
 
   Widget buildOutputField() {
     return Padding(
-      padding: const EdgeInsets.only(left: 40, right: 40),
+      padding: const EdgeInsets.only(left: 5, right: 5),
       child: TextField(
         controller: recognitionController, // 設定 controller
-        enabled: false, // 設定不能接受輸入
-        decoration: const InputDecoration(
+        readOnly: true, // 設定不能接受輸入
+        decoration: InputDecoration(
           fillColor: Colors.white, // 背景顏色，必須結合filled: true,才有效
           filled: true, // 重點，必須設定為true，fillColor才有效
-          disabledBorder: OutlineInputBorder(
+          suffixIcon: IconButton(
+            enableFeedback: true,
+            color: recorder.isRecording ? Colors.redAccent : Colors.grey,
+            onPressed: () async {
+              // getTemporaryDirectory(): 取得暫存資料夾，這個資料夾隨時可能被系統或使用者操作清除
+              Directory tempDir = await path_provider.getTemporaryDirectory();
+              // define file directory
+              String path = '${tempDir.path}/SpeechRecognition.wav';
+              // 控制開始錄音或停止錄音
+              await recorder.toggleRecording(path);
+              // When stop recording, pass wave file to socket
+              if (!recorder.isRecording) {
+                if (recognitionLanguage == "Taiwanese") {
+                  // if recognitionLanguage == "Taiwanese" => use Minnan model
+                  // setTxt is call back function
+                  // parameter: wav file path, call back function, model
+                  await Speech2Text().connect(path, setTxt, "Minnan");
+                  // glSocket.listen(dataHandler, cancelOnError: false);
+                } else {
+                  // if recognitionLanguage == "Chinese" => use MTK_ch model
+                  await Speech2Text().connect(path, setTxt, "MTK_ch");
+                }
+              }
+              // set state is recording or stop
+              setState(() {
+                recorder.isRecording;
+              });
+            },
+            icon: Icon(Icons.mic),
+          ),
+          border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)), // 設定邊框圓角弧度
             borderSide: BorderSide(
               color: Colors.black87, // 設定邊框的顏色
-              width: 2.0, // 設定邊框的粗細
+              width: 1.0, // 設定邊框的粗細
             ),
           ),
         ),
