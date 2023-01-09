@@ -89,6 +89,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                               title: Text(
                                                 target.t,
                                                 textAlign: TextAlign.left,
+
                                                 style: const TextStyle(fontSize:32 ),),
                                               subtitle: Text(
                                                 pronunciation.T,
