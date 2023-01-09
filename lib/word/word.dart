@@ -1,7 +1,29 @@
+class Example{
+  String taiwanese;
+  String taiwanese_pronunciation;
+  String chinese;
+
+  Example({
+    required this.taiwanese,
+    required this.taiwanese_pronunciation,
+    required this.chinese,
+  });
+
+  factory Example.fromJson(String str){
+    str = str.replaceAll(RegExp(r'([\ufff9~`])'), '');
+    return Example(
+      taiwanese: str.split('\ufffa')[0],
+      taiwanese_pronunciation:  str.split('\ufffa')[1].split('\ufffb')[0],
+      chinese: str.split('\ufffa')[1].split('\ufffb')[1],
+    );
+  }
+}
+
+
 class Type{
   String type;
   String f;
-  List<String> e;
+  List<Example> e;
 
   Type({
     required this.type,
@@ -19,7 +41,8 @@ class Type{
           :json['f'].replaceAll(RegExp(r'([~`])'), '') as String,
       e: (json['e'] == null)
           ? []
-          : List<String>.from(json['e'].map((x) => x.replaceAll(RegExp(r'([~`])'), '') as String)),
+          : List<Example>.from(
+          json["e"].map((x) => Example.fromJson(x))),
     );
   }
 }
