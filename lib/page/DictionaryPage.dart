@@ -188,7 +188,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                                                                   ),
                                                                                 ),
                                                                                 subtitle: Text(
-                                                                                  ex.taiwanese_pronunciation,
+                                                                                  ex.t_sound,
                                                                                   textAlign:
                                                                                   TextAlign
                                                                                       .left,
