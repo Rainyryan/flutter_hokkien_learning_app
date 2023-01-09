@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hw_tts/page/TranscribePage.dart';
 import 'utils/wp_http.dart';
@@ -7,11 +8,12 @@ import 'page/DictionaryPage.dart';
 
 void main() {
   DioHttpUtil().init();
+
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  // const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -94,12 +96,25 @@ class _MyAppState extends State<MyApp> {
           },
           items: <BottomNavyBarItem>[
             BottomNavyBarItem(
-                title: Text("來聊天！"), icon: Icon(Icons.chat_bubble)),
-            BottomNavyBarItem(title: Text("台語辭典"), icon: Icon(Icons.book)),
+                title: Text("來聊天！"),
+                icon: Icon(Icons.chat_bubble),
+                activeColor: Colors.lightBlueAccent,
+                inactiveColor: Colors.blueGrey),
             BottomNavyBarItem(
-                title: Text("台語怎麼說"), icon: Icon(Icons.transcribe)),
+                title: Text("台語辭典"),
+                icon: Icon(Icons.book),
+                activeColor: Colors.lightBlueAccent,
+                inactiveColor: Colors.blueGrey),
             BottomNavyBarItem(
-                title: Text("Settings"), icon: Icon(Icons.settings)),
+                title: Text("台語怎麼說"),
+                icon: Icon(Icons.transcribe),
+                activeColor: Colors.lightBlueAccent,
+                inactiveColor: Colors.blueGrey),
+            BottomNavyBarItem(
+                title: Text("Settings"),
+                icon: Icon(Icons.settings),
+                activeColor: Colors.lightBlueAccent,
+                inactiveColor: Colors.blueGrey),
           ],
         ),
       ),

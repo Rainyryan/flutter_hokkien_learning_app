@@ -59,39 +59,6 @@ class ChatPageState extends State<ChatPage> {
         backgroundColor: Theme.of(context).backgroundColor,
         body: Column(
           children: [
-            // const Flexible(
-            //   child: Center(
-            //     child: Text(
-            //       // content of text
-            //       "Speech Synthesis",
-            //       // Setup size and color of Text
-            //       // style: TextStyle(fontSize: 30, color: Colors.blue),
-            //     ),
-            //   ),
-            // ),
-            // Flexible(
-            //     child: Center(
-            //   child: buildTaiwaneseField("Taiwanese"),
-            // )),
-            // Flexible(
-            //   child: Center(child: buildChineseField("Chinese")),
-            // ),
-            // const Flexible(
-            //     child: Center(
-            //   child: Text(
-            //     "Speech Recognition",
-            //     // style: TextStyle(fontSize: 30, color: Colors.blue),
-            //   ),
-            // )),
-            // Flexible(
-            //   child: Center(child: buildRadio()),
-            // ),
-            // Flexible(
-            //   child: Center(child: buildOutputField()),
-            // ),
-            // Flexible(
-            //   child: Center(child: buildRecord()),
-            // ),
             Expanded(
               child: ListView.builder(
                 reverse: true,
@@ -100,7 +67,6 @@ class ChatPageState extends State<ChatPage> {
                 itemCount: _messages.length,
               ),
             ),
-
             Container(height: 50, child: buildRadio()),
             Row(children: [
               Expanded(
@@ -122,7 +88,7 @@ class ChatPageState extends State<ChatPage> {
                 ),
               ),
               IconButton(
-                color: recorder.isRecording ? Colors.redAccent : Colors.white30,
+                color: recorder.isRecording ? Colors.red : Colors.white,
                 onPressed: () async {
                   // getTemporaryDirectory(): 取得暫存資料夾，這個資料夾隨時可能被系統或使用者操作清除
                   Directory tempDir =
@@ -152,6 +118,7 @@ class ChatPageState extends State<ChatPage> {
                 icon: Icon(Icons.mic_none),
               ),
               IconButton(
+                  color: Colors.black,
                   icon: Icon(Icons.send),
                   onPressed: () async {
                     if (_chatController.text.isEmpty) return;
@@ -202,65 +169,6 @@ class ChatPageState extends State<ChatPage> {
     return textPainter.size;
   }
 
-  // build the button of recorder
-  Widget buildRecord() {
-    // whether is recording
-    final isRecording = recorder.isRecording;
-    // if recording => icon is Icons.stop
-    // else => icon is Icons.mic
-    final icon = isRecording ? Icons.stop : Icons.mic;
-    // if recording => color of button is red
-    // else => color of button is white
-    final primary = isRecording ? Colors.red : Colors.white;
-    // if recording => text in button is STOP
-    // else => text in button is START
-    final text = isRecording ? 'STOP' : 'START';
-    // if recording => text in button is white
-    // else => color of button is black
-    final onPrimary = isRecording ? Colors.white : Colors.black;
-
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        // 設定 Icon 大小及屬性
-        minimumSize: const Size(175, 50),
-        primary: primary,
-        onPrimary: onPrimary,
-      ),
-      icon: Icon(icon),
-      label: Text(
-        text,
-        // 設定字體大小及字體粗細（bold粗體，normal正常體）
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-      ),
-      // 當 Iicon 被點擊時執行的動作
-      onPressed: () async {
-        // getTemporaryDirectory(): 取得暫存資料夾，這個資料夾隨時可能被系統或使用者操作清除
-        Directory tempDir = await path_provider.getTemporaryDirectory();
-        // define file directory
-        String path = '${tempDir.path}/SpeechRecognition.wav';
-        // 控制開始錄音或停止錄音
-        await recorder.toggleRecording(path);
-        // When stop recording, pass wave file to socket
-        if (!recorder.isRecording) {
-          if (recognitionLanguage == "Taiwanese") {
-            // if recognitionLanguage == "Taiwanese" => use Minnan model
-            // setTxt is call back function
-            // parameter: wav file path, call back function, model
-            await Speech2Text().connect(path, setTxt, "Minnan");
-            // glSocket.listen(dataHandler, cancelOnError: false);
-          } else {
-            // if recognitionLanguage == "Chinese" => use MTK_ch model
-            await Speech2Text().connect(path, setTxt, "MTK_ch");
-          }
-        }
-        // set state is recording or stop
-        setState(() {
-          recorder.isRecording;
-        });
-      },
-    );
-  }
-
   // set recognitionController.text function
   void setTxt(taiTxt) async {
     _chatController.text = taiTxt;
@@ -269,9 +177,9 @@ class ChatPageState extends State<ChatPage> {
     await Text2Speech().connect(play, reply, recognitionLanguage.toLowerCase());
     print(reply);
     setState(() {
-      // recognitionController.text = taiTxt;
-      _submitText(reply, false);
+      recognitionController.text = taiTxt;
     });
+    _submitText(reply, false);
   }
 
   Widget buildTaiwaneseField(txt) {
@@ -416,7 +324,7 @@ class ChatPageState extends State<ChatPage> {
           //  如果Radio的value和groupValu一樣就是此 Radio 選中其他設置為不選中
           groupValue: recognitionLanguage,
           // 設定選種顏色
-          activeColor: Colors.red,
+          activeColor: Colors.blueAccent,
           onChanged: (value) {
             setState(() {
               // 將 recognitionLanguage 設為 Taiwanese
@@ -437,7 +345,7 @@ class ChatPageState extends State<ChatPage> {
           //  如果Radio的value和groupValu一樣就是此 Radio 選中其他設置為不選中
           groupValue: recognitionLanguage,
           // 設定選種顏色
-          activeColor: Colors.red,
+          activeColor: Colors.blueAccent,
           onChanged: (value) {
             setState(() {
               // 將 recognitionLanguage 設為 Taiwanese

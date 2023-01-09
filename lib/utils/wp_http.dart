@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-
 import 'constants.dart';
 
 class DioHttpUtil {
@@ -14,8 +13,8 @@ class DioHttpUtil {
     _dio = Dio();
     _dio.options = BaseOptions(
       baseUrl: openaiBaseUrl,
-      connectTimeout: 10000, // 10秒
-      receiveTimeout: 5000, // 5秒
+      connectTimeout: 10000, // 10secs
+      receiveTimeout: 5000, // 5secs
       headers: {
         "Authorization": 'Bearer $openaiApiKey',
       },
