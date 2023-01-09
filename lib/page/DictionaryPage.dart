@@ -104,6 +104,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                                     }
                                                     String url =
                                                         'https://1763c5ee9859e0316ed6-db85b55a6a3fbe33f09b9245992383bd.ssl.cf1.rackcdn.com/$ID.ogg';
+                                                    print(url);
                                                     audioUrl = UrlSource(url);
                                                     await audioPlayer
                                                         .play(audioUrl);
