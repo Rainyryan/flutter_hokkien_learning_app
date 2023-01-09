@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../word/word.dart';
 import '../word/word_model.dart';
-
+import 'package:audioplayers/audioplayers.dart';
 
 class DictionaryPage extends StatefulWidget {
   const DictionaryPage({Key? key, required this.title}) : super(key: key);
@@ -11,8 +11,11 @@ class DictionaryPage extends StatefulWidget {
   State<DictionaryPage> createState() => _DictionaryPageState();
 }
 
+
 class _DictionaryPageState extends State<DictionaryPage> {
   TextEditingController controller = TextEditingController();
+  final audioPlayer = AudioPlayer();
+  late Source audioUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: [
+
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
@@ -72,33 +76,119 @@ class _DictionaryPageState extends State<DictionaryPage> {
                           if(target.t == 'notExist'){
                             return const SizedBox(child: Text('no match'));
                           }else{
-                            return Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    child: ListTile(
-                                      title: Text(target.t),
-                                      subtitle: Text(target.pronounce),
-                                      trailing: IconButton(
-                                          onPressed: () {
-                                          },
-                                          icon: const Icon(
-                                              Icons.audiotrack)),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: ListTile(
-                                      title: Text(target.description),
-                                      subtitle: Text(target.type),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: ListTile(
-                                      title: Text('例句'),
-                                      subtitle: Text(target.example),
-                                    ),
-                                  ),
-                                ],
+                            return Expanded(
+                              child: ListView(
+                                children: List.generate(target.h.length,
+                                        (i) {
+                                      final pronunciation = target.h[i];
+                                      return Container(
+                                        child:
+                                        Column(
+                                          children: [
+                                            ListTile(
+                                              title: Text(
+                                                target.t,
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(fontSize:24 ),),
+                                              subtitle: Text(
+                                                pronunciation.T,
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(fontSize:14 ),
+                                              ),
+                                              trailing: IconButton(
+                                                  onPressed: () async{
+                                                    String ID = pronunciation.audioID;
+                                                    while(ID.length < 5) {
+                                                      ID = '0$ID';
+                                                    }
+                                                    String url = 'https://1763c5ee9859e0316ed6-db85b55a6a3fbe33f09b9245992383bd.ssl.cf1.rackcdn.com/$ID.ogg';
+                                                    audioUrl = UrlSource(url);
+                                                    await audioPlayer.play(audioUrl);
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.audiotrack)),
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.fromLTRB(30,10,0,0),
+                                              child:Column(
+                                                  children: List.generate(pronunciation.d.length,
+                                                          (j) {
+                                                        final type = pronunciation.d[j];
+                                                        return Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  type.type,
+                                                                  textAlign: TextAlign.left,
+                                                                  style: TextStyle(
+                                                                      fontSize: 16,
+                                                                      color: Colors.white,
+                                                                      background: Paint()
+                                                                        ..strokeWidth = 16.0
+                                                                        ..color = Colors.blueAccent
+                                                                        ..style = PaintingStyle.stroke
+                                                                        ..strokeJoin = StrokeJoin.round
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                    padding: const EdgeInsets.fromLTRB(10,15,0,0),
+                                                                    child:
+                                                                    Text(
+                                                                      type.f,
+                                                                      textAlign: TextAlign.left,
+                                                                      style: const TextStyle(
+                                                                          fontSize: 16,
+                                                                          color: Colors.black
+                                                                      ),
+                                                                    )
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              children: List.generate(type.e.length,
+                                                                      (k) {
+                                                                    final ex = type.e[k];
+                                                                    return
+                                                                      Flexible(
+                                                                      flex: 1,
+                                                                      child: Padding(
+                                                                          padding: const EdgeInsets.all(5),
+                                                                          child:Card(
+                                                                            color: Colors.green,
+                                                                            shape: const StadiumBorder(
+                                                                              side: BorderSide(
+                                                                                color: Colors.teal,
+                                                                                width: 1.0,
+                                                                              ),
+                                                                            ),
+                                                                            child: Padding(
+                                                                              padding: const EdgeInsets.all(10),
+                                                                              child:
+                                                                              Text(
+                                                                                ex,
+                                                                                textAlign: TextAlign.left,
+                                                                                style: const TextStyle(
+                                                                                  fontSize: 14,
+                                                                                  color: Colors.white,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                      ),
+                                                                    );
+                                                                  }),
+                                                            )
+                                                          ],
+                                                        );
+                                                      }),
+                                                ),
+                                            ),
+
+                                          ],
+                                        ),
+                                      );
+                                    }),
                               ),
                             );
                           }
