@@ -59,13 +59,21 @@ class Pronunciation{
   });
 
   factory Pronunciation.fromJson(Map<String, dynamic> json){
+    String tempID;
+    if(json['='] == null){
+      if(json['_'] == null){
+        tempID = '00000';
+      }else{
+        tempID = json['_'];
+      }
+    }else{
+      tempID = json['='];
+    }
     return Pronunciation(
       T: (json['T'] == null)
         ? 'no pronounce'
         : json['T'].replaceAll(RegExp(r'([~`])'), '') as String,
-      audioID: (json['T'] == null)
-          ? '00000'
-          : json['_'] as String,
+      audioID: tempID,
       d: (json['d'] == null)
           ? []
           : List<Type>.from(
