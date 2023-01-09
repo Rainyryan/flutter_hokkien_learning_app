@@ -81,47 +81,104 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                 children: List.generate(target.h.length,
                                         (i) {
                                       final pronunciation = target.h[i];
-                                      return Column(
-                                        children: [
-                                          ListTile(
-                                            title: Text(target.t,
-                                              style: const TextStyle(fontSize:22 ),),
-                                            subtitle: Text(
+                                      return Container(
+                                        child:
+                                        Column(
+                                          children: [
+                                            ListTile(
+                                              title: Text(
+                                                target.t,
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(fontSize:24 ),),
+                                              subtitle: Text(
                                                 pronunciation.T,
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(fontSize:14 ),
+                                              ),
+                                              trailing: IconButton(
+                                                  onPressed: () async{
+                                                    String ID = pronunciation.audioID;
+                                                    while(ID.length < 5) {
+                                                      ID = '0$ID';
+                                                    }
+                                                    String url = 'https://1763c5ee9859e0316ed6-db85b55a6a3fbe33f09b9245992383bd.ssl.cf1.rackcdn.com/$ID.ogg';
+                                                    audioUrl = UrlSource(url);
+                                                    await audioPlayer.play(audioUrl);
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.audiotrack)),
                                             ),
-                                            trailing: IconButton(
-                                                onPressed: () async{
-                                                  String ID = pronunciation.audioID;
-                                                  while(ID.length < 5) {
-                                                    ID = '0$ID';
-                                                  }
-                                                  String url = 'https://1763c5ee9859e0316ed6-db85b55a6a3fbe33f09b9245992383bd.ssl.cf1.rackcdn.com/$ID.ogg';
-                                                  audioUrl = UrlSource(url);
-                                                  await audioPlayer.play(audioUrl);
-                                                },
-                                                icon: const Icon(
-                                                    Icons.audiotrack)),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.only(left: 20),
-                                            child:
-                                            Column(
-                                              children: List.generate(pronunciation.d.length,
-                                                      (j) {
-                                                    final type = pronunciation.d[j];
-                                                    return Column(
-                                                      children: [
-                                                        ListTile(
-                                                          title: Text(type.f),
-                                                          subtitle: Text(
-                                                              type.type),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  }),
+                                            Container(
+                                              padding: const EdgeInsets.fromLTRB(30,10,0,0),
+                                              child:Column(
+                                                  children: List.generate(pronunciation.d.length,
+                                                          (j) {
+                                                        final type = pronunciation.d[j];
+                                                        return Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  type.type,
+                                                                  textAlign: TextAlign.left,
+                                                                  style: TextStyle(
+                                                                      fontSize: 16,
+                                                                      color: Colors.white,
+                                                                      background: Paint()
+                                                                        ..strokeWidth = 16.0
+                                                                        ..color = Colors.blueAccent
+                                                                        ..style = PaintingStyle.stroke
+                                                                        ..strokeJoin = StrokeJoin.round
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                    padding: const EdgeInsets.fromLTRB(10,15,0,0),
+                                                                    child:
+                                                                    Text(
+                                                                      type.f,
+                                                                      textAlign: TextAlign.left,
+                                                                      style: const TextStyle(
+                                                                          fontSize: 16,
+                                                                          color: Colors.black
+                                                                      ),
+                                                                    )
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              children: List.generate(type.e.length,
+                                                                      (k) {
+                                                                    final ex = type.e[k];
+                                                                    return Flexible(
+                                                                      flex: 1,
+                                                                      child: Padding(
+                                                                          padding: const EdgeInsets.all(10),
+                                                                          child:
+                                                                          Text(
+                                                                            ex,
+                                                                            textAlign: TextAlign.left,
+                                                                            style: TextStyle(
+                                                                                fontSize: 14,
+                                                                                color: Colors.black,
+                                                                                background: Paint()
+                                                                                  ..strokeWidth = 14.0
+                                                                                  ..color = Colors.lightGreen
+                                                                                  ..style = PaintingStyle.stroke
+                                                                                  ..strokeJoin = StrokeJoin.round
+                                                                            ),
+                                                                          ),
+                                                                      ),
+                                                                    );
+                                                                  }),
+                                                            )
+                                                          ],
+                                                        );
+                                                      }),
+                                                ),
                                             ),
-                                          ),
-                                        ],
+
+                                          ],
+                                        ),
                                       );
                                     }),
                               ),
