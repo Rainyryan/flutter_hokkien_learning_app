@@ -89,11 +89,11 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                               title: Text(
                                                 target.t,
                                                 textAlign: TextAlign.left,
-                                                style: const TextStyle(fontSize:24 ),),
+                                                style: const TextStyle(fontSize:32 ),),
                                               subtitle: Text(
                                                 pronunciation.T,
                                                 textAlign: TextAlign.left,
-                                                style: const TextStyle(fontSize:14 ),
+                                                style: const TextStyle(fontSize:18 ),
                                               ),
                                               trailing: IconButton(
                                                   onPressed: () async{
@@ -146,38 +146,86 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                                               ],
                                                             ),
                                                             Row(
-                                                              children: List.generate(type.e.length,
-                                                                      (k) {
-                                                                    final ex = type.e[k];
-                                                                    return
-                                                                      Flexible(
-                                                                      flex: 1,
-                                                                      child: Padding(
-                                                                          padding: const EdgeInsets.all(5),
-                                                                          child:Card(
-                                                                            color: Colors.green,
-                                                                            shape: const StadiumBorder(
-                                                                              side: BorderSide(
-                                                                                color: Colors.teal,
-                                                                                width: 1.0,
-                                                                              ),
-                                                                            ),
-                                                                            child: Padding(
-                                                                              padding: const EdgeInsets.all(10),
-                                                                              child:
-                                                                              Text(
-                                                                                ex,
-                                                                                textAlign: TextAlign.left,
-                                                                                style: const TextStyle(
-                                                                                  fontSize: 14,
-                                                                                  color: Colors.white,
+                                                              children: List.generate(
+                                                                  type.e.length, (k) {
+                                                                final ex = type.e[k];
+                                                                return Flexible(
+                                                                  flex: 1,
+                                                                  child: Padding(
+                                                                      padding:
+                                                                      const EdgeInsets
+                                                                          .all(5),
+                                                                      child:
+                                                                      Container(
+                                                                        width: 200,
+                                                                        decoration: const BoxDecoration(
+                                                                            color: Colors
+                                                                                .green,
+                                                                            borderRadius:
+                                                                            BorderRadius.all(
+                                                                                Radius.circular(15))),
+                                                                        child:
+                                                                        Padding(
+                                                                          padding:
+                                                                          const EdgeInsets.all(
+                                                                              10),
+                                                                          child: Column(
+                                                                            children: [
+                                                                              ListTile(
+                                                                                title: Text(
+                                                                                  ex.taiwanese,
+                                                                                  textAlign:
+                                                                                  TextAlign
+                                                                                      .left,
+                                                                                  style:
+                                                                                  const TextStyle(
+                                                                                    fontSize:
+                                                                                    24,
+                                                                                    color: Colors
+                                                                                        .white,
+                                                                                  ),
+                                                                                ),
+                                                                                subtitle: Text(
+                                                                                  ex.taiwanese_pronunciation,
+                                                                                  textAlign:
+                                                                                  TextAlign
+                                                                                      .left,
+                                                                                  style:
+                                                                                  const TextStyle(
+                                                                                    fontSize:
+                                                                                    14,
+                                                                                    color: Colors
+                                                                                        .black,
+                                                                                  ),
                                                                                 ),
                                                                               ),
-                                                                            ),
+                                                                              ex.chinese.isEmpty
+                                                                                  ?const SizedBox(child: Text('',style:
+                                                                              TextStyle(
+                                                                                fontSize:
+                                                                                1,
+                                                                                color: Colors
+                                                                                    .white,
+                                                                              ),))
+                                                                                  :Text(
+                                                                                '中文翻譯:${ex.chinese}',
+                                                                                textAlign:
+                                                                                TextAlign
+                                                                                    .left,
+                                                                                style:
+                                                                                const TextStyle(
+                                                                                  fontSize:
+                                                                                  12,
+                                                                                  color: Colors
+                                                                                      .white,
+                                                                                ),
+                                                                              ),
+                                                                            ],
                                                                           )
-                                                                      ),
-                                                                    );
-                                                                  }),
+                                                                        ),
+                                                                      )),
+                                                                );
+                                                              }),
                                                             )
                                                           ],
                                                         );
