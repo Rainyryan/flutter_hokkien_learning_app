@@ -1,45 +1,81 @@
+class Type{
+  String type;
+  String f;
+  List<String> e;
+
+  Type({
+    required this.type,
+    required this.f,
+    required this.e,
+  });
+
+  factory Type.fromJson(Map<String, dynamic> json){
+    return Type(
+      type: (json['type'] == null)
+          ? 'no type'
+          :json['type'].replaceAll(RegExp(r'([~`])'), '') as String,
+      f: (json['f'] == null)
+          ? 'no f'
+          :json['f'].replaceAll(RegExp(r'([~`])'), '') as String,
+      e: (json['e'] == null)
+          ? []
+          : List<String>.from(json['e'].map((x) => x.replaceAll(RegExp(r'([~`])'), '') as String)),
+    );
+  }
+}
+
+class Pronunciation{
+  String T;
+  String audioID;
+  List<Type> d;
+
+  Pronunciation({
+    required this.T,
+    required this.d,
+    required this.audioID,
+  });
+
+  factory Pronunciation.fromJson(Map<String, dynamic> json){
+    return Pronunciation(
+      T: (json['T'] == null)
+        ? 'no pronounce'
+        : json['T'].replaceAll(RegExp(r'([~`])'), '') as String,
+      audioID: (json['T'] == null)
+          ? '00000'
+          : json['_'] as String,
+      d: (json['d'] == null)
+          ? []
+          : List<Type>.from(
+            json["d"].map((x) => Type.fromJson(x))),
+
+    );
+  }
+}
+
 class Word {
   String t;
-  String pronounce;
-  String type;
-  String description;
-  String example;
+  List<Pronunciation> h;
 
   Word({
     required this.t,
-    required this.pronounce,
-    required this.type,
-    required this.description,
-    required this.example,
+    required this.h,
   });
 
   factory Word.fromJson(Map<String, dynamic> json){
-    Map<String, dynamic> h = json['h'][0];
-    Map<String, dynamic> d = h['d'][0];
     return Word(
-      t: json['t'] as String,
-      pronounce: (h['T'] == null)
-        ? 'no pronounce'
-        : h['T'],
-      type: (d['type'] == null)
-          ? 'no type'
-          : d['type'],
-      description: (d['f'] == null)
-          ? 'no description'
-          : d['f'],
-      example: (d['e'] == null)
-          ? 'no example'
-          : d['e'][0],
+      t: (json['t'] == null)
+          ? 'no t'
+          :json['t'].replaceAll(RegExp(r'([~`])'), '') as String,
+      h: (json['h'] == null)
+          ? []
+          :List<Pronunciation>.from(
+            json["h"].map((x) => Pronunciation.fromJson(x))),
     );
   }
 
   factory Word.notExist(){
     return Word(
-      t: 'notExist',
-      pronounce: 'null',
-      type: 'null',
-      description: 'null',
-      example: 'null',
+      t: 'notExist', h: [],
     );
   }
 }
