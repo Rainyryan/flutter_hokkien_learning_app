@@ -1,11 +1,11 @@
 class Example{
   String taiwanese;
-  String taiwanese_pronunciation;
+  String t_sound;
   String chinese;
 
   Example({
     required this.taiwanese,
-    required this.taiwanese_pronunciation,
+    required this.t_sound,
     required this.chinese,
   });
 
@@ -13,7 +13,7 @@ class Example{
     str = str.replaceAll(RegExp(r'([\ufff9~`])'), '');
     return Example(
       taiwanese: str.split('\ufffa')[0],
-      taiwanese_pronunciation:  str.split('\ufffa')[1].split('\ufffb')[0],
+      t_sound:  str.split('\ufffa')[1].split('\ufffb')[0],
       chinese: str.split('\ufffa')[1].split('\ufffb')[1],
     );
   }
