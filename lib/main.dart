@@ -1,8 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hw_tts/speech/TranscribePage.dart';
+import 'package:flutter_hw_tts/page/TranscribePage.dart';
 import 'utils/wp_http.dart';
-import 'speech/ChatPage.dart';
+import 'page/ChatPage.dart';
+import 'page/DictionaryPage.dart';
 
 void main() {
   DioHttpUtil().init();
@@ -77,7 +78,7 @@ class _MyAppState extends State<MyApp> {
             },
             children: [
               ChatPage(title: "Chat"),
-              Container(color: Colors.white),
+              DictionaryPage(title: "Dictionary"),
               TranscribePage(title: "Transcribe"),
               Container(color: Colors.red),
             ],
