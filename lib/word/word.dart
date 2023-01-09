@@ -19,7 +19,6 @@ class Example{
   }
 }
 
-
 class Type{
   String type;
   String f;
