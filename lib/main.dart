@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
           items: <BottomNavyBarItem>[
             BottomNavyBarItem(
                 title: Text("來聊天！"), icon: Icon(Icons.chat_bubble)),
-            BottomNavyBarItem(title: Text("Home"), icon: Icon(Icons.home)),
+            BottomNavyBarItem(title: Text("台語辭典"), icon: Icon(Icons.book)),
             BottomNavyBarItem(
                 title: Text("台語怎麼說"), icon: Icon(Icons.transcribe)),
             BottomNavyBarItem(
