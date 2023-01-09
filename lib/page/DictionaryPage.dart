@@ -86,7 +86,14 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                               title: Text(
                                                 target.t,
                                                 textAlign: TextAlign.left,
-
+                                                style: const TextStyle(
+                                                    fontSize: 24),
+                                              ),
+                                              subtitle: Text(
+                                                pronunciation.T,
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(
+                                                    fontSize: 14),
                                               ),
                                               trailing: IconButton(
                                                   onPressed: () async {
@@ -165,7 +172,54 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                                                       color: Colors
                                                                           .black),
                                                                 ),
-
+                                                              )),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: List.generate(
+                                                            type.e.length, (k) {
+                                                          final ex = type.e[k];
+                                                          return Flexible(
+                                                            flex: 1,
+                                                            child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  decoration: BoxDecoration(
+                                                                      color: Colors
+                                                                          .green,
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(15))),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            10),
+                                                                    child: Text(
+                                                                      ex,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .left,
+                                                                      style:
+                                                                          const TextStyle(
+                                                                        fontSize:
+                                                                            14,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )),
+                                                          );
+                                                        }),
+                                                      )
+                                                    ],
+                                                  );
+                                                }),
+                                              ),
                                             ),
                                           ],
                                         ),
