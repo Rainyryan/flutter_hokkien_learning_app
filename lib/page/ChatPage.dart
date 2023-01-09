@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_hw_tts/utils/wp_http.dart';
+import 'package:flutter_hokkien_learning_app/utils/wp_http.dart';
 
 import '../speech/socket_tts.dart';
 import '../speech/sound_player.dart';
@@ -122,9 +122,9 @@ class ChatPageState extends State<ChatPage> {
                   icon: Icon(Icons.send),
                   onPressed: () async {
                     if (_chatController.text.isEmpty) return;
-                    _submitText(_chatController.text, true);
-                    String reply =
-                        await DioHttpUtil().complete(_chatController.text);
+                    var text = _chatController.text;
+                    _submitText(text, true);
+                    String reply = await DioHttpUtil().complete(text);
                     await Text2Speech().connect(
                         play, reply, recognitionLanguage.toLowerCase());
                     _submitText(reply, false);

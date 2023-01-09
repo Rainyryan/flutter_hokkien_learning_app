@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:flutter_hw_tts/utils/wp_http.dart';
+import 'package:flutter_hokkien_learning_app/utils/wp_http.dart';
 
 import '../speech/socket_tts.dart';
 import '../speech/sound_player.dart';

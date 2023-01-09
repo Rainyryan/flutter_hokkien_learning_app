@@ -13,8 +13,8 @@ class DioHttpUtil {
     _dio = Dio();
     _dio.options = BaseOptions(
       baseUrl: openaiBaseUrl,
-      connectTimeout: 10000, // 10secs
-      receiveTimeout: 5000, // 5secs
+      connectTimeout: 20000,
+      receiveTimeout: 10000,
       headers: {
         "Authorization": 'Bearer $openaiApiKey',
       },
@@ -35,8 +35,8 @@ class DioHttpUtil {
     var res = await post("/completions", data: {
       "model": "text-davinci-003",
       "prompt": prompt,
-      "temperature": 1.3,
-      "max_tokens": 128,
+      "temperature": 1,
+      "max_tokens": 256,
     });
     if (res.data["choices"] != null) {
       return res.data["choices"][0]["text"].toString();

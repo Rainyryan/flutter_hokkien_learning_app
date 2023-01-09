@@ -1,7 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hw_tts/page/TranscribePage.dart';
+import 'package:flutter_hokkien_learning_app/page/TranscribePage.dart';
 import 'utils/wp_http.dart';
 import 'page/ChatPage.dart';
 import 'page/DictionaryPage.dart';

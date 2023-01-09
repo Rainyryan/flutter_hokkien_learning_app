@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../word/word.dart';
 import '../word/word_model.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 
 class DictionaryPage extends StatefulWidget {
   const DictionaryPage({Key? key, required this.title}) : super(key: key);
@@ -14,7 +14,6 @@ class DictionaryPage extends StatefulWidget {
 class _DictionaryPageState extends State<DictionaryPage> {
   TextEditingController controller = TextEditingController();
   final audioPlayer = AudioPlayer();
-  late Source audioUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -103,11 +102,15 @@ class _DictionaryPageState extends State<DictionaryPage> {
                                                       ID = '0$ID';
                                                     }
                                                     String url =
-                                                        'https://1763c5ee9859e0316ed6-db85b55a6a3fbe33f09b9245992383bd.ssl.cf1.rackcdn.com/$ID.ogg';
-                                                    print(url);
-                                                    audioUrl = UrlSource(url);
+                                                        'https://1763c5ee9859e0316ed6-db85b55a6a3fbe33f09b9245992383bd.ssl.cf1.rackcdn.com/$ID.mp3';
                                                     await audioPlayer
-                                                        .play(audioUrl);
+                                                        .setUrl(url);
+                                                    await audioPlayer.play();
+                                                    // audioUrl = UrlSource(url);
+                                                    // await audioPlayer.play(
+                                                    //     audioUrl,
+                                                    //     mode: PlayerMode
+                                                    //         .lowLatency);
                                                   },
                                                   icon: const Icon(
                                                       Icons.audiotrack)),
