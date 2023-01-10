@@ -26,7 +26,6 @@ class ChatPageState extends State<ChatPage> {
   // get soundPlayer
   final player = SoundPlayer();
 
-  // var chat_api = GPT3('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');
 
   // Declare TextEditingController to get the value in TextField
   TextEditingController taiwanessController = TextEditingController();
@@ -175,7 +174,7 @@ class ChatPageState extends State<ChatPage> {
     _submitText(taiTxt, true);
     String reply = await DioHttpUtil().complete(taiTxt);
     await Text2Speech().connect(play, reply, recognitionLanguage.toLowerCase());
-    print(reply);
+    // print(reply);
     setState(() {
       recognitionController.text = taiTxt;
     });
@@ -228,11 +227,11 @@ class ChatPageState extends State<ChatPage> {
   }
 
   Future play(String pathToReadAudio) async {
-    await player.play(pathToReadAudio);
     setState(() {
-      player.init();
+      // player.init();
       player.isPlaying;
     });
+    await player.play(pathToReadAudio);
   }
 
   Widget buildChineseField(txt) {

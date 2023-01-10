@@ -82,7 +82,8 @@ class _MyAppState extends State<MyApp> {
               ChatPage(title: "Chat"),
               DictionaryPage(title: "Dictionary"),
               TranscribePage(title: "Transcribe"),
-              Container(color: Colors.red),
+              Column(
+                  children: [Image(image: AssetImage('assets/9302004.jpg'))]),
             ],
           ),
         ),
