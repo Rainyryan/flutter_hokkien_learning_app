@@ -80,7 +80,10 @@ class TranscribePageState extends State<TranscribePage> {
                   ),
             )),
             Flexible(
-              child: Container(child: buildRadio(), height: 50,),
+              child: Container(
+                child: buildRadio(),
+                height: 50,
+              ),
             ),
             Flexible(
               child: Center(child: buildOutputField()),
@@ -332,7 +335,7 @@ class TranscribePageState extends State<TranscribePage> {
           value: 'Taiwanese',
           // Set option name、color
           title: const Text(
-            'Taiwanese',
+            '台語',
             style: TextStyle(color: Colors.white),
           ),
           //  如果Radio的value和groupValu一樣就是此 Radio 選中其他設置為不選中
@@ -353,7 +356,7 @@ class TranscribePageState extends State<TranscribePage> {
           value: 'Chinese',
           // Set option name、color
           title: const Text(
-            'Chinese',
+            '國語',
             style: TextStyle(color: Colors.white),
           ),
           //  如果Radio的value和groupValu一樣就是此 Radio 選中其他設置為不選中
