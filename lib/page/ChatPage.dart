@@ -10,6 +10,7 @@ import '../speech/flutter_tts.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import '../speech/socket_stt.dart';
+import '../main.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key, required this.title}) : super(key: key);
@@ -25,7 +26,6 @@ class ChatPageState extends State<ChatPage> {
   final recorder = SoundRecorder();
   // get soundPlayer
   final player = SoundPlayer();
-
 
   // Declare TextEditingController to get the value in TextField
   TextEditingController taiwanessController = TextEditingController();
@@ -142,31 +142,39 @@ class ChatPageState extends State<ChatPage> {
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             alignment: mine ? Alignment.centerRight : Alignment.centerLeft,
             child: Container(
+              constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width / 1.5),
               // width: MediaQuery.of(context).size.width / 1.5,
-              width: _textSize(text, TextStyle(fontSize: 15.0)).width,
+              // width: _textSize(
+              //         text,
+              //         Theme.of(context).textTheme.bodyText2 ??
+              //             TextStyle(fontSize: 15))
+              //     .width,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               decoration: BoxDecoration(
                   color: mine ? Colors.blueAccent : Colors.green,
                   borderRadius: BorderRadius.all(Radius.circular((20)))),
-              alignment: mine ? Alignment.centerRight : Alignment.centerLeft,
+              // alignment: mine ? Alignment.centerRight : Alignment.centerLeft,
               child: Text(
                 text,
+                softWrap: true,
               ),
             )),
       );
     });
   }
 
-  Size _textSize(String text, TextStyle style) {
-    final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: text, style: style),
-        maxLines: 10,
-        textDirection: TextDirection.ltr)
-      ..layout(
-          minWidth: MediaQuery.of(context).size.width / 5,
-          maxWidth: MediaQuery.of(context).size.width / 1.5);
-    return textPainter.size;
-  }
+  // Size _textSize(String text, TextStyle style) {
+  //   final TextPainter textPainter = TextPainter(
+  //       text: TextSpan(text: text, style: style),
+  //       maxLines: 10,
+  //       textDirection: TextDirection.ltr)
+  //     ..layout(
+  //         minWidth: MediaQuery.of(context).size.width / 10,
+  //         maxWidth: MediaQuery.of(context).size.width / 1.2);
+  //   print(textPainter.size.width);
+  //   return textPainter.size;
+  // }
 
   // set recognitionController.text function
   void setTxt(taiTxt) async {
