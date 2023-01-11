@@ -144,12 +144,6 @@ class ChatPageState extends State<ChatPage> {
             child: Container(
               constraints: BoxConstraints(
                   maxWidth: MediaQuery.of(context).size.width / 1.5),
-              // width: MediaQuery.of(context).size.width / 1.5,
-              // width: _textSize(
-              //         text,
-              //         Theme.of(context).textTheme.bodyText2 ??
-              //             TextStyle(fontSize: 15))
-              //     .width,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               decoration: BoxDecoration(
                   color: mine ? Colors.blueAccent : Colors.green,
