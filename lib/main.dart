@@ -23,6 +23,9 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   int _curentIndex = 0;
   late PageController _pageController;
+  Brightness _brightness = Brightness.light;
+  double _fontSize = 15;
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Speech',
       theme: ThemeData(
         // Define the default brightness and colors.
-        brightness: Brightness.light,
+        brightness: _brightness,
         primarySwatch: Colors.blueGrey,
 
         // Define the default font family.
@@ -49,10 +52,10 @@ class _MyAppState extends State<MyApp> {
 
         // Define the default `TextTheme`. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
-        textTheme: const TextTheme(
-          headline6: TextStyle(fontSize: 15.0),
-          bodyText2: TextStyle(fontSize: 15, color: Colors.white),
-          subtitle1: TextStyle(fontSize: 15, color: Colors.black),
+        textTheme: TextTheme(
+          headline6: TextStyle(fontSize: _fontSize),
+          bodyText2: TextStyle(fontSize: _fontSize, color: Colors.white),
+          subtitle1: TextStyle(fontSize: _fontSize, color: Colors.black),
         ),
       ),
       // ThemeData(
@@ -82,8 +85,52 @@ class _MyAppState extends State<MyApp> {
               ChatPage(title: "Chat"),
               DictionaryPage(title: "Dictionary"),
               TranscribePage(title: "Transcribe"),
-              Column(
-                  children: [Image(image: AssetImage('assets/9302004.jpg'))]),
+              Column(children: [
+                Image(image: AssetImage('assets/9302004.jpg')),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Text("Dark Mode",
+                          style: TextStyle(
+                              color: _brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.blueGrey)),
+                    ),
+                    Switch(
+                      value: _brightness == Brightness.dark,
+                      onChanged: (value) => setState(() {
+                        _brightness =
+                            value ? Brightness.dark : Brightness.light;
+                      }),
+                      activeColor: Colors.lightBlueAccent,
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "字體大小",
+                    style: TextStyle(
+                        color: _brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.blueGrey),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Slider(
+                  value: _fontSize,
+                  onChanged: (value) => {
+                    setState(() {
+                      _fontSize = value;
+                    })
+                  },
+                  label: "Font Size",
+                  min: 10,
+                  max: 20,
+                )
+              ]),
             ],
           ),
         ),
@@ -97,22 +144,25 @@ class _MyAppState extends State<MyApp> {
           },
           items: <BottomNavyBarItem>[
             BottomNavyBarItem(
-                title: Text("來聊天！"),
+                title: Text(
+                  "來聊天！",
+                  style: TextStyle(fontSize: 20),
+                ),
                 icon: Icon(Icons.chat_bubble),
                 activeColor: Colors.lightBlueAccent,
                 inactiveColor: Colors.blueGrey),
             BottomNavyBarItem(
-                title: Text("台語辭典"),
+                title: Text("台語辭典", style: TextStyle(fontSize: 18)),
                 icon: Icon(Icons.book),
                 activeColor: Colors.lightBlueAccent,
                 inactiveColor: Colors.blueGrey),
             BottomNavyBarItem(
-                title: Text("台語怎麼說"),
+                title: Text("台語怎麼說", style: TextStyle(fontSize: 16)),
                 icon: Icon(Icons.transcribe),
                 activeColor: Colors.lightBlueAccent,
                 inactiveColor: Colors.blueGrey),
             BottomNavyBarItem(
-                title: Text("Settings"),
+                title: Text("設定", style: TextStyle(fontSize: 20)),
                 icon: Icon(Icons.settings),
                 activeColor: Colors.lightBlueAccent,
                 inactiveColor: Colors.blueGrey),
