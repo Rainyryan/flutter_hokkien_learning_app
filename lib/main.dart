@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
       // ),
       home: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 25,
+          toolbarHeight: 30,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
               DictionaryPage(title: "Dictionary"),
               TranscribePage(title: "Transcribe"),
               Column(children: [
-                Image(image: AssetImage('assets/9302004.jpg')),
+                Container(child: Image(image: AssetImage('assets/9302004.jpg')), padding: EdgeInsets.all(10),),
                 Row(
                   children: [
                     Container(
